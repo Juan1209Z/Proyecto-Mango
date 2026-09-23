@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía - Arma tu PC Ideal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>PC Builder - Arma tu PC Ideal</h1>
+    </header>
+    
+    <main class="container">
+        <!-- Área para elegir piezas -->
+        <section class="selection-area">
+            <h2>1. Selecciona tus Componentes</h2>
+            <div id="category-selector">
+                <button data-category="cpu">Procesador (CPU)</button>
+                <button data-category="gpu">Tarjeta Gráfica (GPU)</button>
+                <button data-category="ram">Memoria RAM</button>
+                <button data-category="storage">Almacenamiento</button>
+            </div>
+            
+            <div id="parts-list" class="parts-grid">
+                <!-- Piezas dinámicas -->
+            </div>
+        </section>
+
+        <!-- Área de resumen del PC -->
+        <aside class="build-summary">
+            <h2>2. Tu Ensamblaje</h2>
+            <ul id="build-list">
+                <!-- Componentes elegidos -->
+            </ul>
+            <div class="total">
+                Total Presupuesto: $<span id="total-price">0</span> USD
+            </div>
+
+            <!-- Formulario modificado -->
+            <hr style="margin: 2rem 0;">
+            <h2>3. Guardar Cotización</h2>
+            <form id="form-aspirante">
+                <input type="text" id="nombre" placeholder="Tu Nombre" required>
+                <input type="email" id="correo" placeholder="Correo Electrónico" required>
+                <button type="submit" class="save-btn">Guardar PC</button>
+            </form>
+        </aside>
+    </main>
+
+    <!-- Tabla modificada con columnas separadas -->
+    <section class="table-container">
+        <h2>Cotizaciones Guardadas</h2>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>CPU</th>
+                    <th>GPU</th>
+                    <th>RAM</th>
+                    <th>Almacenamiento</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo-tabla">
+                <!-- Se llenará dinámicamente -->
+            </tbody>
+        </table>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>
