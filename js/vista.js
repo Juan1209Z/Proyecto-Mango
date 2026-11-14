@@ -270,4 +270,32 @@ const VistaAPI = {
             }
         });
     }
+
+  const VistaGuias = {
+    pintarJuegos(juegos) {
+        const contenedor = document.getElementById("resultados-juego");
+        contenedor.innerHTML = "";
+
+        if (juegos.length === 0) {
+            contenedor.innerHTML = "<p class='tarjeta_aviso'>No se encontraron juegos.</p>";
+            return;
+        }
+
+        juegos.forEach(juego => {
+            const tarjeta = document.createElement("article");
+            tarjeta.className = "tarjeta";
+            
+            // Si la API devuelve portada, extraemos el ID, si no, imagen por defecto
+            const imgUrl = juego.cover ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${juego.cover.url.split('/').pop()}` : 'img/default.jpg';
+
+            tarjeta.innerHTML = `
+                <img src="${imgUrl}" class="tarjeta_imagen" alt="${juego.name}">
+                <h3 class="tarjeta_titulo">${juego.name}</h3>
+                <p class="tarjeta_lista">Plataformas: ${juego.platforms ? juego.platforms.length : 0}</p>
+                <button class="boton boton--secundario" style="margin-top: 10px;">Ver requisitos recomendados</button>
+            `;
+            contenedor.appendChild(tarjeta);
+        });
+    }
+};
 };
