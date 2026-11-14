@@ -1,7 +1,7 @@
 const CLIENT_ID = 'p39i8lbo9nxk4bdv04b9vpyz6ad5pw'; // Pegalo aquí
 const TOKEN = 'aeb7ey3ns9za48gs1x7mxhqkxujypp';         // Pegalo aquí
 // El proxy evita el error de CORS en el navegador
-const PROXY_URL = 'https://corsproxy.io/';
+const PROXY_URL = 'https://corsproxy.io/?';
 const IGDB_URL = encodeURIComponent('https://api.igdb.com/v4/games');
 
 export async function buscarJuegoIGDB(nombreJuego) {
@@ -14,7 +14,7 @@ export async function buscarJuegoIGDB(nombreJuego) {
                 'Authorization': `Bearer ${TOKEN}`
             },
             // Sintaxis Apicalypse de IGDB para pedir nombre y plataforma
-            body: `search "${nombreJuego}"; fields name, platforms.name, cover.url; limit 5;`
+            body: `search "${nombreJuego}"; fields name, platforms.name, cover.url, rating; limit 8;`
         });
 
         if (!response.ok) {
