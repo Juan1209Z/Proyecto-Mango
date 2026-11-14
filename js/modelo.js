@@ -160,22 +160,7 @@ const ModeloTienda = {
         localStorage.setItem("pedidos_tienda", JSON.stringify(this.savedCotizaciones));
     },
 
-    getSavedCotizaciones() { 
-        return this.savedCotizaciones; 
-    }
 
-    const ModeloGuias = {
-    guias: [],
-
-    async cargarGuias() {
-        this.guias = await ServicioAPI.obtenerGuias();
-        return this.guias;
-    },
-
-    obtenerTodas() {
-        return this.guias;
-    }
-};
     
 };
 
