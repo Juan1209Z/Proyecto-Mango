@@ -1,9 +1,10 @@
 // ===================== CONTROLADOR =====================
 // Escucha al usuario, le pide al modelo y le dice a la vista qué pintar.
-import { buscarJuegoIGDB } from '../servicios/api.js';
 const Controlador = {
+  import { buscarJuegoIGDB } from '../servicios/api.js';
   // null = el formulario está creando; un número = está editando ese producto
   idEditando: null,
+  
 
   iniciar() {
     Modelo.cargar();
