@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Builder - Inicio</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="cabecera-global">
+        <div>
+            <a href="inicio.html" class="cabecera_titulo">PC Builder</a>
+            <span class="cabecera_lema">Arma tu PC Ideal</span>
+        </div>
+    </header>
+
+    <main class="contenedor-centrado">
+        <div class="caja-autenticacion">
+            
+            <!-- PANEL DE SELECCIÓN -->
+            <div id="panel-seleccion">
+                <h2 class="seccion_titulo">Bienvenido</h2>
+                <p class="campo_ayuda">Selecciona tu perfil para continuar</p>
+                <div class="botones-apilados">
+                    <button id="btn-cliente" class="boton">Soy Cliente</button>
+                    <button id="btn-admin" class="boton boton--secundario">Soy Administrador</button>
+                </div>
+            </div>
+
+            <!-- PANEL DE LOGIN -->
+            <div id="panel-login" class="oculto">
+                <h2 class="seccion_titulo">Acceso Administrativo</h2>
+                <form id="form-login" class="formulario form-auth">
+                    <div class="campo">
+                        <label class="campo_etiqueta">Usuario:</label>
+                        <input type="text" id="login-user" class="campo_control" required>
+                    </div>
+                    <div class="campo">
+                        <label class="campo_etiqueta">Contraseña:</label>
+                        <input type="password" id="login-pass" class="campo_control" required>
+                    </div>
+                    <p id="msg-login" class="tarjeta_aviso"></p>
+                    
+                    <div class="botones-apilados">
+                        <button type="submit" class="boton">Ingresar</button>
+                        <button type="button" id="btn-ir-registro" class="boton boton--secundario">Registrar Nuevo Admin</button>
+                        <button type="button" class="btn-volver boton boton--secundario btn-link">Volver</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- PANEL DE REGISTRO -->
+            <div id="panel-registro" class="oculto">
+                <h2 class="seccion_titulo">Registrar Administrador</h2>
+                <p class="campo_ayuda">Ingresa el código maestro para habilitar tu cuenta.</p>
+                <form id="form-registro" class="formulario form-auth">
+                    <div class="campo">
+                        <label class="campo_etiqueta">Nuevo Usuario:</label>
+                        <input type="text" id="reg-user" class="campo_control" required>
+                    </div>
+                    <div class="campo">
+                        <label class="campo_etiqueta">Contraseña:</label>
+                        <input type="password" id="reg-pass" class="campo_control" required>
+                    </div>
+                    <div class="campo">
+                        <label class="campo_etiqueta">Código de Autorización:</label>
+                        <input type="password" id="reg-code" class="campo_control" required placeholder="Ej: ADMIN01">
+                    </div>
+                    
+                    <p id="msg-registro" class="tarjeta_aviso"></p>
+                    <p id="msg-registro-exito" class="exito-texto oculto"></p>
+                    
+                    <div class="botones-apilados">
+                        <button type="submit" class="boton">Guardar Registro</button>
+                        <button type="button" class="btn-volver boton boton--secundario btn-link">Volver</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Archivos JS separados por capas -->
+    <script src="js/modelo.js"></script>
+    <script src="js/vista.js"></script>
+    <script src="js/controlador.js"></script>
+</body>
+
+</html>
