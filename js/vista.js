@@ -271,5 +271,18 @@ const VistaAPI = {
         });
     }
 
+  const ModeloGuias = {
+    guias: [],
+
+    async cargarGuias() {
+        this.guias = await ServicioAPI.obtenerGuias();
+        return this.guias;
+    },
+
+    obtenerTodas() {
+        return this.guias;
+    }
+};
+
 
 };
