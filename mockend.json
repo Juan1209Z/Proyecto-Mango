@@ -1,0 +1,23 @@
+{
+  "Guias": {
+    "titulo": {
+      "choices": [
+        "Fundamentos básicos de la CPU", 
+        "¿Qué Tarjeta Gráfica (GPU) elegir?", 
+        "Memoria RAM: Frecuencias y Latencias", 
+        "Almacenamiento: Diferencias entre HDD, SSD y NVMe"
+      ]
+    },
+    "categoria": {
+      "choices": ["CPU", "GPU", "RAM", "Almacenamiento"]
+    },
+    "descripcion": {
+      "string": [
+        "Aprende los conceptos clave para entender cómo funciona este componente en tu PC y cómo elegir el mejor para tu presupuesto."
+      ]
+    },
+    "tiempoLecturaMinutos": {
+      "int": [3, 10]
+    }
+  }
+}
