@@ -193,6 +193,38 @@ const ControladorTienda = {
     }
 };
 
+// Importa la función al inicio de controlador.js si usas módulos, 
+// o asegúrate de que api.js esté cargado antes en el HTML.
+
+const ControladorGuias = {
+    iniciar() {
+        const btnBuscar = document.getElementById("btn-buscar-juego");
+        const inputJuego = document.getElementById("input-juego");
+
+        if (!btnBuscar) return; 
+
+        btnBuscar.addEventListener("click", async () => {
+            const busqueda = inputJuego.value.trim();
+            if (busqueda.length > 2) {
+                // Llama al modelo (API)
+                const resultados = await buscarJuegoIGDB(busqueda);
+                // Llama a la vista
+                VistaGuias.pintarJuegos(resultados);
+            }
+        });
+    }
+};
+
+// Modifica el ARRANQUE GLOBAL al final de tu controlador.js:
+document.addEventListener("DOMContentLoaded", () => {
+    // ... tus arranques anteriores
+    
+    // NUEVO: Arranca la página de Guías/Juegos
+    if (document.getElementById("btn-buscar-juego")) {
+        ControladorGuias.iniciar();
+    }
+});
+
 // ===================== ARRANQUE GLOBAL SEGURO =====================
 document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("panel-seleccion")) {
