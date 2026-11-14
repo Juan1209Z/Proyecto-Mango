@@ -212,6 +212,24 @@ document.addEventListener("DOMContentLoaded", () => {
         ControladorAPI.iniciar();
     }
 
+  const ControladorGuias = {
+    async iniciar() {
+        if (!document.getElementById("contenedor-guias")) return;
+
+        VistaGuias.ocultarError();
+        VistaGuias.mostrarCarga(true);
+
+        try {
+            const guias = await ModeloGuias.cargarGuias();
+            VistaGuias.pintarGuias(guias);
+        } catch (error) {
+            VistaGuias.mostrarError(error.message);
+        } finally {
+            VistaGuias.mostrarCarga(false);
+        }
+    }
+};
+
 
 });
 
