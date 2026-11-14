@@ -1,6 +1,6 @@
 // servicios/api.js
 // Reemplaza con tu usuario y repo de GitHub
-const API_URL = 'https://mockend.com/Juan1209Z/Proyecto-Mango/guias';
+const API_URL = 'https://juan1209z.github.io/Proyecto-Mango/guias.html';
 
 export async function obtenerGuias() {
     try {
