@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Builder - Guías </title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="cuerpo_inicio">
+    <header class="cabecera-global">
+        <div>
+            <a href="inicio.html" class="cabecera_titulo">PC Builder</a>
+            <a href="tienda.html" class="cabecera_titulo">Tienda</a>
+            <span class="cabecera_lema">Arma tu PC Ideal</span>
+        </div>
+    </header>
+
+  <h2>Listado de Clientes (API)</h2>
+
+    <!-- Indicador de carga -->
+    <div id="indicador-carga" style="display: none; font-weight: bold; color: blue;">
+        ⏳ Cargando datos, por favor espera...
+    </div>
+
+    <!-- Mensaje de error -->
+    <div id="mensaje-error" style="display: none; color: red; background: #fee; padding: 10px; border-radius: 5px;"></div>
+
+    <!-- Contenedor donde se renderizarán las tarjetas -->
+    <div id="contenedor-tarjetas" style="display: flex; flex-wrap: wrap;"></div>
+
+    <!-- IMPORTANTE: type="module" para poder usar import/export -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
