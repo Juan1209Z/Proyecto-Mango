@@ -160,6 +160,9 @@ const ModeloTienda = {
         localStorage.setItem("pedidos_tienda", JSON.stringify(this.savedCotizaciones));
     },
 
+    getSavedCotizaciones() { 
+        return this.savedCotizaciones; 
+    }
 
     
 };
