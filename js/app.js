@@ -1,156 +1,257 @@
-class PCModel {
-    constructor() {
-        this.inventory = {
-            cpu: [{ id: 'c1', name: 'AMD Ryzen 5 5600X', price: 150 }, { id: 'c2', name: 'Intel Core i5-12400F', price: 160 }],
-            gpu: [{ id: 'g1', name: 'NVIDIA RTX 4060', price: 300 }, { id: 'g2', name: 'AMD Radeon RX 7600', price: 270 }],
-            ram: [{ id: 'r1', name: 'Corsair Vengeance 16GB', price: 45 }, { id: 'r2', name: 'G.Skill 32GB', price: 110 }],
-            storage: [{ id: 's1', name: 'Crucial 1TB NVMe', price: 60 }, { id: 's2', name: 'Samsung 2TB', price: 170 }]
-        };
+// 1. Datos y referencias a los elementos de la página.
+let inventario = [
+    { id: 1, nombre: 'AMD Ryzen 5 5600X', precio: 150, categoria: 'CPU', cantidad: 10, imagen: 'img/cpuamd.jpg' },
+    { id: 2, nombre: 'Intel Core i5-12400F', precio: 160, categoria: 'CPU', cantidad: 0, imagen: 'img/cpuintel.jpg' },
+    { id: 3, nombre: 'NVIDIA RTX 4060', precio: 300, categoria: 'GPU', cantidad: 5, imagen: 'img/gpunvidia.jpg' },
+    { id: 4, nombre: 'AMD Radeon RX 7600', precio: 270, categoria: 'GPU', cantidad: 2, imagen: 'img/gpuamd.jpg' },
+    { id: 5, nombre: 'Corsair Vengeance 16GB', precio: 45, categoria: 'RAM', cantidad: 20, imagen: 'img/ram.jpg' },
+    { id: 6, nombre: 'Crucial 1TB NVMe', precio: 60, categoria: 'Almacenamiento', cantidad: 8, imagen: 'img/almacenamiento.jpg' }
+];
 
-        this.currentBuild = { cpu: null, gpu: null, ram: null, storage: null };
-        this.savedCotizaciones = [];
-    }
+let categoriaActual = 'Todas';
+let textoBusqueda = '';
 
-    getPartsByCategory(category) { return this.inventory[category] || []; }
+const contenedorTarjetas = document.getElementById('contenedor-tarjetas');
+const contenedorFiltros = document.getElementById('contenedor-filtros');
+const listaResumen = document.getElementById('lista-resumen');
+const cuerpoTabla = document.getElementById('cuerpo-tabla');
+const inputBuscador = document.getElementById('input-buscador');
+const contadorResultados = document.getElementById('contador-resultados');
+const avisoVacio = document.getElementById('aviso-vacio');
+const formAgregar = document.getElementById('form-agregar');
+const errorAgregar = document.getElementById('error-agregar');
+const formContacto = document.getElementById('form-contacto');
+const mensajeExito = document.getElementById('mensaje-exito');
 
-    addPartToBuild(category, partId) {
-        const part = this.inventory[category].find(p => p.id === partId);
-        if (part) this.currentBuild[category] = part;
-    }
-
-    getBuild() { return this.currentBuild; }
-
-    getTotalPrice() {
-        return Object.values(this.currentBuild).reduce((acc, part) => part ? acc + part.price : acc, 0);
-    }
-
-    saveCotizacion(nombre, correo) {
-        const buildSnapshot = { ...this.currentBuild }; 
-        const total = this.getTotalPrice();
-
-        this.savedCotizaciones.push({ nombre, correo, build: buildSnapshot, total });
-        
-        this.currentBuild = { cpu: null, gpu: null, ram: null, storage: null };
-    }
-
-    getSavedCotizaciones() { return this.savedCotizaciones; }
+// 2. Funciones de ayuda (formato, validación).
+function filtrarYBuscar() {
+    return inventario.filter(producto => {
+        const coincideCategoria = categoriaActual === 'Todas' || producto.categoria === categoriaActual;
+        const coincideTexto = producto.nombre.toLowerCase().includes(textoBusqueda.toLowerCase());
+        return coincideCategoria && coincideTexto;
+    });
 }
 
-class PCView {
-    constructor() {
-        this.partsList = document.getElementById('parts-list');
-        this.buildList = document.getElementById('build-list');
-        this.totalPrice = document.getElementById('total-price');
-        this.categoryButtons = document.querySelectorAll('#category-selector button');
+function validarNuevoProducto(nombre, precio, cantidad) {
+    if (nombre === '' || precio === '' || cantidad === '') {
+        return 'Todos los campos son obligatorios.';
+    }
+    if (precio > 10000000) {
+    return 'El sistema no admite productos con precios mayores a $10.000.000 COP.';
+    }
+    const existe = inventario.some(p => p.nombre.toLowerCase() === nombre.toLowerCase());
+    if (existe) {
+        return 'Ya existe un producto con ese nombre.';
+    }
+    if (precio > 2000) {
+        return 'El sistema no admite productos con precios mayores a $2000 USD.';
+    }
+    return null; 
+}
+
+function actualizarVistas() {
+    const datosProcesados = filtrarYBuscar();
+    dibujarTarjetas(datosProcesados);
+    dibujarResumen();
+    dibujarTabla();
+}
+
+// 3. Funciones que dibujan en la página.
+function dibujarTarjetas(lista) {
+    contenedorTarjetas.textContent = '';
+    contadorResultados.textContent = `Mostrando ${lista.length} resultados.`;
+    
+    if (lista.length === 0) {
+        avisoVacio.classList.remove('oculto');
+    } else {
+        avisoVacio.classList.add('oculto');
+    }
+
+    lista.forEach(producto => {
+        const tarjeta = document.createElement('article');
+        tarjeta.classList.add('tarjeta');
         
-        this.form = document.getElementById('form-aspirante');
-        this.nombre = document.getElementById('nombre');
-        this.correo = document.getElementById('correo');
-        this.cuerpoTabla = document.getElementById('cuerpo-tabla');
-    }
-
-    limpiar() {
-        this.form.reset();
-    }
-
-    renderAvailableParts(parts, category) {
-        this.partsList.innerHTML = ''; 
-        parts.forEach(part => {
-            const card = document.createElement('div');
-            card.className = 'part-card';
-            card.innerHTML = `
-                <h3>${part.name}</h3><p>$${part.price}</p>
-                <button class="add-btn" data-category="${category}" data-id="${part.id}">Seleccionar</button>
-            `;
-            this.partsList.appendChild(card);
-        });
-    }
-
-    renderBuildSummary(build, total) {
-        this.buildList.innerHTML = '';
-        const names = { cpu: 'Procesador', gpu: 'Gráfica', ram: 'Memoria RAM', storage: 'Disco' };
-        for (const key in build) {
-            const li = document.createElement('li');
-            li.innerHTML = build[key] 
-                ? `<strong>${names[key]}:</strong> <span>${build[key].name} ($${build[key].price})</span>`
-                : `<strong>${names[key]}:</strong> <span style="color: #999;">Falta seleccionar</span>`;
-            this.buildList.appendChild(li);
+        // Estado visual de agotado usando las clases de style.css
+        if (producto.cantidad === 0) {
+            tarjeta.classList.add('tarjeta--agotada'); 
         }
-        this.totalPrice.textContent = total;
-    }
 
-    renderTable(cotizaciones) {
-        this.cuerpoTabla.innerHTML = '';
-        cotizaciones.forEach(cot => {
-            const tr = document.createElement('tr');
-            const cpuName = cot.build.cpu ? cot.build.cpu.name : '-';
-            const gpuName = cot.build.gpu ? cot.build.gpu.name : '-';
-            const ramName = cot.build.ram ? cot.build.ram.name : '-';
-            const storageName = cot.build.storage ? cot.build.storage.name : '-';
+        const img = document.createElement('img');
+        img.src = producto.imagen;
+        img.alt = producto.nombre;
+        img.classList.add('tarjeta_imagen');
 
-            tr.innerHTML = `
-                <td>${cot.nombre}</td>
-                <td>${cot.correo}</td>
-                <td><small>${cpuName}</small></td>
-                <td><small>${gpuName}</small></td>
-                <td><small>${ramName}</small></td>
-                <td><small>${storageName}</small></td>
-                <td><strong>$${cot.total}</strong></td>
-            `;
-            this.cuerpoTabla.appendChild(tr);
-        });
-    }
+        const titulo = document.createElement('h3');
+        titulo.textContent = producto.nombre;
+        titulo.classList.add('tarjeta_titulo');
 
-    bindCategoryChange(handler) {
-        this.categoryButtons.forEach(button => button.addEventListener('click', (e) => handler(e.target.dataset.category)));
-    }
+        const info = document.createElement('p');
+        info.textContent = `$${producto.precio} COP | Stock: ${producto.cantidad}`;
+        info.classList.add('tarjeta_precio');
 
-    bindAddPart(handler) {
-        this.partsList.addEventListener('click', (e) => {
-            if (e.target.className === 'add-btn') handler(e.target.dataset.category, e.target.dataset.id);
-        });
-    }
+        const avisoAgotado = document.createElement('span');
+        if (producto.cantidad === 0) {
+            avisoAgotado.textContent = '¡Agotado!';
+            avisoAgotado.classList.add('tarjeta_aviso');
+        }
 
-    bindSaveForm(handler) {
-        this.form.addEventListener('submit', (e) => {
-            e.preventDefault(); 
-            handler(this.nombre.value, this.correo.value);
-        });
-    }
-}
-class PCController {
-    constructor(model, view) {
-        this.model = model;
-        this.view = view;
+        const btnEliminar = document.createElement('button');
+        btnEliminar.textContent = 'Eliminar';
+        btnEliminar.classList.add('boton', 'boton--peligro');
+        btnEliminar.dataset.id = producto.id;
 
-        this.view.bindCategoryChange(this.handleCategoryChange.bind(this));
-        this.view.bindAddPart(this.handleAddPart.bind(this));
-        this.view.bindSaveForm(this.handleSaveForm.bind(this));
+        tarjeta.appendChild(img);
+        tarjeta.appendChild(titulo);
+        tarjeta.appendChild(info);
+        if (producto.cantidad === 0) { tarjeta.appendChild(avisoAgotado); }
+        tarjeta.appendChild(btnEliminar);
 
-        this.handleCategoryChange('cpu');
-        this.updateBuildView();
-    }
-
-    handleCategoryChange(category) {
-        this.view.renderAvailableParts(this.model.getPartsByCategory(category), category);
-    }
-
-    handleAddPart(category, partId) {
-        this.model.addPartToBuild(category, partId);
-        this.updateBuildView();
-    }
-    handleSaveForm(nombre, correo) {
-        this.model.saveCotizacion(nombre, correo);
-        this.view.renderTable(this.model.getSavedCotizaciones());
-        this.view.limpiar();
-        this.updateBuildView();
-    }
-
-    updateBuildView() {
-        this.view.renderBuildSummary(this.model.getBuild(), this.model.getTotalPrice());
-    }
+        contenedorTarjetas.appendChild(tarjeta);
+    });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const app = new PCController(new PCModel(), new PCView());
+function dibujarFiltros() {
+    contenedorFiltros.textContent = '';
+    const categorias = ['Todas', 'CPU', 'GPU', 'RAM', 'Almacenamiento'];
+    
+    categorias.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.textContent = cat;
+        
+        // Usa los botones base de mango.css 
+        if (cat === categoriaActual) {
+            btn.classList.add('boton'); 
+        } else {
+            btn.classList.add('boton', 'boton--secundario'); 
+        }
+        
+        btn.addEventListener('click', () => {
+            categoriaActual = cat;
+            dibujarFiltros(); 
+            actualizarVistas();
+        });
+        
+        contenedorFiltros.appendChild(btn);
+    });
+}
+
+function dibujarResumen() {
+    listaResumen.textContent = '';
+    
+    const totalProductos = inventario.length;
+    const productosAgotados = inventario.filter(p => p.cantidad === 0).length;
+    const valorInventario = inventario.reduce((acumulador, p) => acumulador + (p.precio * p.cantidad), 0);
+
+    const liTotal = document.createElement('li');
+    liTotal.textContent = `Total de componentes: ${totalProductos}`;
+    
+    const liAgotados = document.createElement('li');
+    liAgotados.textContent = `Agotados: ${productosAgotados}`;
+    
+    const liValor = document.createElement('li');
+    liValor.textContent = `Valor de inventario: $${valorInventario} COP`;
+
+    listaResumen.appendChild(liTotal);
+    listaResumen.appendChild(liAgotados);
+    listaResumen.appendChild(liValor);
+}
+
+function dibujarTabla() {
+    cuerpoTabla.textContent = '';
+    inventario.forEach(producto => {
+        const fila = document.createElement('tr');
+        
+        const tdId = document.createElement('td');
+        tdId.textContent = producto.id;
+        
+        const tdNombre = document.createElement('td');
+        tdNombre.textContent = producto.nombre;
+        
+        const tdCat = document.createElement('td');
+        tdCat.textContent = producto.categoria;
+        
+        const tdPrecio = document.createElement('td');
+        tdPrecio.textContent = `$${producto.precio}`;
+        
+        const tdStock = document.createElement('td');
+        tdStock.textContent = producto.cantidad;
+
+        fila.appendChild(tdId);
+        fila.appendChild(tdNombre);
+        fila.appendChild(tdCat);
+        fila.appendChild(tdPrecio);
+        fila.appendChild(tdStock);
+        
+        cuerpoTabla.appendChild(fila);
+    });
+}
+
+// 4. Eventos.
+inputBuscador.addEventListener('input', (evento) => {
+    textoBusqueda = evento.target.value;
+    actualizarVistas();
 });
+
+formAgregar.addEventListener('submit', (evento) => {
+    evento.preventDefault();
+    errorAgregar.textContent = '';
+
+    const nombre = document.getElementById('nombre-item').value.trim();
+    const precio = Number(document.getElementById('precio-item').value);
+    const categoria = document.getElementById('cat-item').value;
+    const cantidad = Number(document.getElementById('cant-item').value);
+
+    const error = validarNuevoProducto(nombre, precio, cantidad);
+    
+    if (error) {
+        errorAgregar.textContent = error;
+        return; 
+    }
+
+    const nuevoId = inventario.length > 0 ? Math.max(...inventario.map(p => p.id)) + 1 : 1;
+    
+    inventario.push({
+        id: nuevoId,
+        nombre: nombre,
+        precio: precio,
+        categoria: categoria,
+        cantidad: cantidad,
+        imagen: 'img/default.jpg' // Asegúrate de tener esta imagen en tu carpeta
+    });
+
+    formAgregar.reset();
+    actualizarVistas();
+});
+
+contenedorTarjetas.addEventListener('click', (evento) => {
+    if (evento.target.tagName === 'BUTTON') {
+        const idEliminar = Number(evento.target.dataset.id);
+        const confirmar = confirm('¿Estás seguro de que deseas eliminar este componente?');
+        
+        if (confirmar) {
+            inventario = inventario.filter(p => p.id !== idEliminar);
+            actualizarVistas();
+        }
+    }
+});
+
+formContacto.addEventListener('submit', (evento) => {
+    evento.preventDefault();
+    const nombreContacto = document.getElementById('contacto-nombre').value;
+    
+    mensajeExito.textContent = `¡Gracias por contactarnos, ${nombreContacto}! Tu mensaje fue enviado correctamente.`;
+    mensajeExito.classList.remove('oculto');
+    
+    formContacto.reset();
+    
+    setTimeout(() => {
+        mensajeExito.classList.add('oculto');
+    }, 4000);
+});
+
+// 5. Arranque con DOMContentLoaded.
+document.addEventListener('DOMContentLoaded', () => {
+    dibujarFiltros();
+    actualizarVistas();
+});
+
