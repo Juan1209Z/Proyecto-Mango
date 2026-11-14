@@ -1,5 +1,5 @@
 const CLIENT_ID = 'p39i8lbo9nxk4bdv04b9vpyz6ad5pw'; // Pegalo aquí
-const TOKEN = 'vtkc6jcx172j5s2g1e1b6jw0r5r3ys';         // Pegalo aquí
+const TOKEN = 'aeb7ey3ns9za48gs1x7mxhqkxujypp';         // Pegalo aquí
 // El proxy evita el error de CORS en el navegador
 const PROXY_URL = 'https://corsproxy.io/';
 const IGDB_URL = encodeURIComponent('https://api.igdb.com/v4/games');
