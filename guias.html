@@ -15,4 +15,14 @@
             <span class="cabecera_lema">Arma tu PC Ideal</span>
         </div>
     </header>
+<main class="contenedor-centrado" style="flex-direction: column; justify-content: flex-start; padding-top: 50px;">
+    <h2 class="seccion_titulo">Requisitos por Juego</h2>
+    <div class="campo" style="display: flex; gap: 10px; width: 100%; max-width: 600px;">
+        <input type="text" id="input-juego" class="campo_control" placeholder="Ej: Cyberpunk 2077...">
+        <button id="btn-buscar-juego" class="boton">Buscar</button>
+    </div>
+    
+    <!-- Aquí se pintarán los resultados -->
+    <div id="resultados-juego" class="catalogo" style="margin-top: 20px; width: 100%; max-width: 800px;"></div>
+</main>
 </body>
