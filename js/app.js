@@ -249,7 +249,9 @@ formContacto.addEventListener('submit', (evento) => {
     }, 4000);
 });
 
-
-
+// 5. Arranque con DOMContentLoaded.
+document.addEventListener('DOMContentLoaded', () => {
+    dibujarFiltros();
+    actualizarVistas();
 });
 
