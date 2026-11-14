@@ -264,38 +264,79 @@ const VistaAPI = {
         const botones = document.querySelectorAll('#api-filtros button');
         botones.forEach(btn => {
             if (btn.dataset.categoria === categoriaSeleccionada) {
-                btn.className = 'boton'; // Activo
+                btn.className = 'boton';
             } else {
-                btn.className = 'boton boton--secundario'; // Inactivo
+                btn.className = 'boton boton--secundario';
             }
         });
     }
+}; // <-- Cierre de VistaAPI que faltaba
 
-  const VistaGuias = {
-    pintarJuegos(juegos) {
-        const contenedor = document.getElementById("resultados-juego");
-        contenedor.innerHTML = "";
+const VistaGuias = {
+    mostrarCargando(cargando) {
+        const estado = document.getElementById('estado-busqueda');
+        const btnBuscar = document.getElementById('btn-buscar-juego');
 
-        if (juegos.length === 0) {
-            contenedor.innerHTML = "<p class='tarjeta_aviso'>No se encontraron juegos.</p>";
+        if (cargando) {
+            estado.textContent = 'Buscando juegos en el catálogo...';
+            estado.style.color = 'var(--color-primario)';
+            estado.classList.remove('oculto');
+            btnBuscar.disabled = true;
+        } else {
+            estado.classList.add('oculto');
+            btnBuscar.disabled = false;
+        }
+    },
+
+    mostrarError(mensaje) {
+        const estado = document.getElementById('estado-busqueda');
+        const contenedor = document.getElementById('resultados-juego');
+        contenedor.innerHTML = '';
+
+        estado.textContent = mensaje;
+        estado.style.color = 'var(--color-alerta)';
+        estado.classList.remove('oculto');
+    },
+
+    pintarJuegos(juegosCrudos) {
+        const contenedor = document.getElementById('resultados-juego');
+        contenedor.innerHTML = '';
+
+        // Transformación de datos con métodos de arreglos (.filter y .map)
+        const juegosFormateados = juegosCrudos
+            .filter(juego => juego && juego.name)
+            .map(juego => ({
+                titulo: juego.name,
+                imagen: juego.cover
+                    ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${juego.cover.url.split('/').pop()}`
+                    : 'img/default.jpg',
+                plataformas: juego.platforms
+                    ? juego.platforms.map(p => p.name).join(', ')
+                    : 'No especificadas',
+                calificacion: juego.rating
+                    ? `${Math.round(juego.rating)} / 100`
+                    : 'Sin calificación'
+            }));
+
+        if (juegosFormateados.length === 0) {
+            contenedor.innerHTML = "<p class='tarjeta_aviso'>No se encontraron juegos con ese nombre.</p>";
             return;
         }
 
-        juegos.forEach(juego => {
-            const tarjeta = document.createElement("article");
-            tarjeta.className = "tarjeta";
-            
-            // Si la API devuelve portada, extraemos el ID, si no, imagen por defecto
-            const imgUrl = juego.cover ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${juego.cover.url.split('/').pop()}` : 'img/default.jpg';
+        juegosFormateados.forEach(juego => {
+            const tarjeta = document.createElement('article');
+            tarjeta.className = 'tarjeta';
 
             tarjeta.innerHTML = `
-                <img src="${imgUrl}" class="tarjeta_imagen" alt="${juego.name}">
-                <h3 class="tarjeta_titulo">${juego.name}</h3>
-                <p class="tarjeta_lista">Plataformas: ${juego.platforms ? juego.platforms.length : 0}</p>
+                <img src="${juego.imagen}" class="tarjeta_imagen" alt="${juego.titulo}">
+                <h3 class="tarjeta_titulo">${juego.titulo}</h3>
+                <ul class="tarjeta_lista">
+                    <li><strong>Plataformas:</strong> ${juego.plataformas}</li>
+                    <li><strong>Puntuación:</strong> ${juego.calificacion}</li>
+                </ul>
                 <button class="boton boton--secundario" style="margin-top: 10px;">Ver requisitos recomendados</button>
             `;
             contenedor.appendChild(tarjeta);
         });
     }
-};
 };
