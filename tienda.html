@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Builder - Tienda</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="cuerpo_inicio">
+    <!-- Cabecera Global -->
+    <header class="cabecera-global">
+        <div>
+            <a href="inicio.html" class="cabecera_titulo">PC Builder</a>
+            <span class="cabecera_lema">Arma tu PC Ideal</span>
+        </div>
+        <nav>
+            <ul class="menu_lista">
+                <li><a class="menu_enlace" href="#catalogo" style="color: white;">Catálogo</a></li>
+                <li><a class="menu_enlace" href="guias.html" style="color: white;">Guias</a></li>
+                <li><a class="menu_enlace" href="#contacto" style="color: white;">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+
+
+    <!-- Sección Principal -->
+    <main>
+        <section class="seccion_inicio" id="catalogo">
+            <h2 class="seccion_titulo">Buscador</h2>
+            <div class="campo">
+                <input type="text" id="input-buscador" class="campo_control" placeholder="Buscar componente por nombre...">
+                <p id="contador-resultados" class="campo_ayuda"></p>
+                <p id="aviso-vacio" class="oculto tarjeta_aviso">No hay coincidencias para tu búsqueda.</p>
+            </div>
+
+
+                <!-- Área para elegir piezas -->
+        <section class="container">
+ 
+            <section class="selection-area">
+            <h2>1. Selecciona tus Componentes</h2>
+            <div id="category-selector">
+                <button data-category="cpu">Procesador (CPU)</button>
+                <button data-category="gpu">Tarjeta Gráfica (GPU)</button>
+                <button data-category="ram">Memoria RAM</button>
+                <button data-category="storage">Almacenamiento</button>
+            </div>
+            
+            <div id="parts-list" class="parts-grid">
+                <!-- Piezas dinámicas -->
+            </div>
+        </section>
+
+        <!-- Área de resumen del PC -->
+        <aside class="build-summary">
+            <h2>2. Tu Ensamblaje</h2>
+            <ul id="build-list">
+                <!-- Componentes elegidos -->
+            </ul>
+            <div class="total">
+                Total Presupuesto: <span id="total-price">0</span> COP
+            </div>
+
+            <!-- Formulario modificado -->
+            <hr style="margin: 2rem 0;">
+            <h2>3. Guardar Cotización</h2>
+            <form id="form-aspirante">
+                <input type="text" id="nombre" placeholder="Tu Nombre" required>
+                <input type="email" id="correo" placeholder="Correo Electrónico" required>
+                <button type="submit" class="save-btn">Guardar PC</button>
+            </form>
+        </aside>
+
+        </section>
+       
+
+        </section>
+      
+
+        <!-- Tabla de resumen general -->
+        <section class="seccion_inicio">
+            <h2 class="seccion_titulo">Pedidos</h2>
+            <div class="tabla-contenedor">
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>CPU</th>
+                            <th>GPU</th>
+                            <th>RAM</th>
+                            <th>Almacenamiento</th>
+                            <th>Precio total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo-tabla">
+                        <!-- Tabla llenada con JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Formulario de contacto validado -->
+        <section id="contacto" class="seccion_inicio">
+            <h2 class="seccion_titulo">Contacto</h2>
+            <form id="form-contacto" class="formulario">
+                <div class="campo">
+                    <label class="campo_etiqueta" for="contacto-nombre">Nombre completo:</label>
+                    <input type="text" id="contacto-nombre" class="campo_control" required minlength="3" pattern="[A-Za-z\s]+" title="Solo letras">
+                </div>
+                <div class="campo">
+                    <label class="campo_etiqueta" for="contacto-correo">Correo Electrónico:</label>
+                    <input type="email" id="contacto-correo" class="campo_control" required>
+                </div>
+                <p id="mensaje-exito" class="oculto exito-texto"></p>
+                <div class="formulario_acciones">
+                    <button type="submit" class="boton">Enviar Mensaje</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+
+
+    <footer>
+        <p class="footer_texto">© 2026 PC Builder. <a href="#" class="Contacto">Soporte</a></p>
+        <p class="footer_texto--tenue">Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Script conectado antes del cierre del body -->
+    <script src="js/modelo.js"></script>
+    <script src="js/vista.js"></script>
+    <script src="js/controlador.js"></script>
+</body>
+</html>
