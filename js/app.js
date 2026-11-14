@@ -253,16 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
     dibujarFiltros();
     actualizarVistas();
 
-    // js/app.js
-import { Controlador } from './controlador.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Validamos que exista el contenedor de guías para asegurarnos 
-    // de que el código de la API solo corra en guias.html
-    if (document.getElementById('contenedor-guias')) {
-        const appControlador = new Controlador();
-        appControlador.iniciar();
-    }
-});
 });
 
