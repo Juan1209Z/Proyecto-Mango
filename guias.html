@@ -21,8 +21,14 @@
         <input type="text" id="input-juego" class="campo_control" placeholder="Ej: Cyberpunk 2077...">
         <button id="btn-buscar-juego" class="boton">Buscar</button>
     </div>
+
+    <!-- Indicador de carga y mensajes de error -->
+    <p id="estado-busqueda" class="campo_ayuda oculto" aria-live="polite" style="margin-top: 10px; font-weight: 600;"></p>
     
     <!-- Aquí se pintarán los resultados -->
     <div id="resultados-juego" class="catalogo" style="margin-top: 20px; width: 100%; max-width: 800px;"></div>
 </main>
+
+<script src="js/vista.js"></script>
+<script type="module" src="js/controlador.js"></script>
 </body>
