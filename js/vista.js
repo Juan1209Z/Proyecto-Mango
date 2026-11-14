@@ -271,43 +271,5 @@ const VistaAPI = {
         });
     }
 
-export class Vista {
-    constructor() {
-        this.contenedor = document.getElementById('contenedor-guias');
-        this.indicadorCarga = document.getElementById('indicador-carga');
-        this.mensajeError = document.getElementById('mensaje-error');
-    }
 
-    mostrarCarga(estado) {
-        this.indicadorCarga.style.display = estado ? 'block' : 'none';
-    }
-
-    mostrarError(mensaje) {
-        this.mensajeError.textContent = mensaje;
-        this.mensajeError.style.display = 'block';
-        this.contenedor.innerHTML = '';
-    }
-
-    limpiarError() {
-        this.mensajeError.style.display = 'none';
-    }
-
-    renderizarGuias(guias) {
-        const tarjetasHTML = guias.map(guia => `
-            <div class="tarjeta-guia" style="border: 1px solid #4CAF50; padding: 20px; margin: 10px; border-radius: 8px; width: 300px;">
-                <span style="background: #4CAF50; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px;">
-                    ${guia.categoria}
-                </span>
-                <h3>${guia.titulo}</h3>
-                <p style="color: #555;">${guia.descripcion}</p>
-                <p>⏱ <strong>Tiempo de lectura:</strong> ${guia.tiempoLecturaMinutos} min</p>
-                <button style="background: #333; color: #fff; border: none; padding: 8px 12px; cursor: pointer; border-radius: 5px;">
-                    Leer guía
-                </button>
-            </div>
-        `).join('');
-
-        this.contenedor.innerHTML = tarjetasHTML;
-    }
-}
 };
