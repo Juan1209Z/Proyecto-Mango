@@ -195,8 +195,8 @@ const ControladorTienda = {
 
 // ===================== ARRANQUE GLOBAL SEGURO =====================
 document.addEventListener("DOMContentLoaded", () => {
-    if (document.getElementById("panel-seleccion")) {
-        ControladorAuth.iniciar();  // Arranca Inicio
+if (document.getElementById("contenedor-guias")) {
+        ControladorGuias.iniciar(); // Arranca Guías
     }
     
     if (document.getElementById("formulario") && document.getElementById("cuerpo")) {
