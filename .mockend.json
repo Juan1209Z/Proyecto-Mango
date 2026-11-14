@@ -1,23 +1,32 @@
 {
-  "guias": {
-    "titulo": {
-      "choices": [
-        "Fundamentos básicos de la CPU", 
-        "¿Qué Tarjeta Gráfica (GPU) elegir?", 
-        "Memoria RAM: Frecuencias y Latencias", 
-        "Almacenamiento: Diferencias entre HDD, SSD y NVMe"
+  "models": {
+    "Guia": {
+      "data": [
+        {
+          "titulo": "Fundamentos básicos de la CPU",
+          "categoria": "CPU",
+          "descripcion": "Aprende qué son los núcleos, hilos y frecuencias para elegir el procesador ideal según tu presupuesto.",
+          "tiempoLecturaMinutos": 5
+        },
+        {
+          "titulo": "¿Qué Tarjeta Gráfica (GPU) elegir?",
+          "categoria": "GPU",
+          "descripcion": "Compara la VRAM, el trazado de rayos y el rendimiento en 1080p y 1440p antes de comprar tu gráfica.",
+          "tiempoLecturaMinutos": 7
+        },
+        {
+          "titulo": "Memoria RAM: Frecuencias y Latencias",
+          "categoria": "RAM",
+          "descripcion": "Diferencias entre DDR4 y DDR5, cómo aprovechar el Dual Channel y cuánta capacidad necesitas realmente.",
+          "tiempoLecturaMinutos": 4
+        },
+        {
+          "titulo": "Almacenamiento: Diferencias entre HDD, SSD y NVMe",
+          "categoria": "Almacenamiento",
+          "descripcion": "Descubre por qué un SSD NVMe M.2 acelera el arranque de tu sistema y los tiempos de carga en juegos.",
+          "tiempoLecturaMinutos": 6
+        }
       ]
-    },
-    "categoria": {
-      "choices": ["CPU", "GPU", "RAM", "Almacenamiento"]
-    },
-    "descripcion": {
-      "string": [
-        "Aprende los conceptos clave para entender cómo funciona este componente en tu PC y cómo elegir el mejor para tu presupuesto."
-      ]
-    },
-    "tiempoLecturaMinutos": {
-      "int": [3, 10]
     }
   }
 }
