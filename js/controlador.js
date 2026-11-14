@@ -212,36 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ControladorAPI.iniciar();
     }
 
-import { Modelo } from './modelo.js';
-import { Vista } from './vista.js';
 
-export class Controlador {
-    constructor() {
-        this.vista = new Vista();
-    }
-
-    async iniciar() {
-        this.vista.mostrarCarga(true);
-        this.vista.limpiarError();
-
-        try {
-            // Pide los datos al modelo
-            const guias = await Modelo.obtenerGuias();
-
-            // Transforma los datos (Requisito de la rúbrica)
-            const guiasProcesadas = guias
-                .filter(guia => guia.tiempoLecturaMinutos <= 8)
-                .slice(0, 4);
-
-            // Manda a pintar los datos procesados
-            this.vista.renderizarGuias(guiasProcesadas);
-
-        } catch (error) {
-            this.vista.mostrarError(error.message);
-        } finally {
-            this.vista.mostrarCarga(false);
-        }
-    }
-}
 });
 
