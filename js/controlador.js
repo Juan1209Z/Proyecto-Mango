@@ -195,8 +195,8 @@ const ControladorTienda = {
 
 // ===================== ARRANQUE GLOBAL SEGURO =====================
 document.addEventListener("DOMContentLoaded", () => {
-if (document.getElementById("contenedor-guias")) {
-        ControladorGuias.iniciar(); // Arranca Guías
+    if (document.getElementById("panel-seleccion")) {
+        ControladorAuth.iniciar();  // Arranca Inicio
     }
     
     if (document.getElementById("formulario") && document.getElementById("cuerpo")) {
@@ -207,7 +207,9 @@ if (document.getElementById("contenedor-guias")) {
         ControladorTienda.iniciar(); // Arranca Tienda
     }
 
-
-
+    // NUEVO: Arranca la página de Guías/API
+    if (document.getElementById("api-catalogo")) {
+        ControladorAPI.iniciar();
+    }
 });
 
