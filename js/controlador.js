@@ -215,19 +215,12 @@ const ControladorGuias = {
     }
 };
 
-// Modifica el ARRANQUE GLOBAL al final de tu controlador.js:
-document.addEventListener("DOMContentLoaded", () => {
-    // ... tus arranques anteriores
-    
-    // NUEVO: Arranca la página de Guías/Juegos
-    if (document.getElementById("btn-buscar-juego")) {
-        ControladorGuias.iniciar();
-    }
-});
 
 // ===================== ARRANQUE GLOBAL SEGURO =====================
+
 document.addEventListener("DOMContentLoaded", () => {
-    if (document.getElementById("panel-seleccion")) {
+
+  if (document.getElementById("panel-seleccion")) {
         ControladorAuth.iniciar();  // Arranca Inicio
     }
     
@@ -243,5 +236,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("api-catalogo")) {
         ControladorAPI.iniciar();
     }
+    
+    // NUEVO: Arranca la página de Guías/Juegos
+    if (document.getElementById("btn-buscar-juego")) {
+        ControladorGuias.iniciar();
+    }
 });
-
