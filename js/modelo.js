@@ -163,14 +163,7 @@ const ModeloTienda = {
     getSavedCotizaciones() { 
         return this.savedCotizaciones; 
     }
- import { obtenerDatosAPI } from '../servicios/api.js';
 
- export class Modelo {
-    static async obtenerGuias() {
-        // Llama a la función del archivo api.js
-        return await obtenerDatosAPI();
-    }
-}
     
 };
 
