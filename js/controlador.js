@@ -198,19 +198,35 @@ const ControladorTienda = {
 
 const ControladorGuias = {
     iniciar() {
-        const btnBuscar = document.getElementById("btn-buscar-juego");
-        const inputJuego = document.getElementById("input-juego");
+        const btnBuscar = document.getElementById('btn-buscar-juego');
+        const inputJuego = document.getElementById('input-juego');
 
-        if (!btnBuscar) return; 
+        if (!btnBuscar) return;
 
-        btnBuscar.addEventListener("click", async () => {
+        const ejecutarBusqueda = async () => {
             const busqueda = inputJuego.value.trim();
-            if (busqueda.length > 2) {
-                // Llama al modelo (API)
-                const resultados = await buscarJuegoIGDB(busqueda);
-                // Llama a la vista
-                VistaGuias.pintarJuegos(resultados);
+            if (busqueda.length < 2) {
+                VistaGuias.mostrarError('Escribe al menos 2 caracteres para buscar un juego.');
+                return;
             }
+
+            VistaGuias.mostrarCargando(true);
+
+            try {
+                const resultados = await buscarJuegoIGDB(busqueda);
+                VistaGuias.mostrarCargando(false);
+                VistaGuias.pintarJuegos(resultados);
+            } catch (error) {
+                VistaGuias.mostrarCargando(false);
+                VistaGuias.mostrarError(
+                    'No pudimos obtener los juegos en este momento. Revisa tu conexión a internet o intenta más tarde.'
+                );
+            }
+        };
+
+        btnBuscar.addEventListener('click', ejecutarBusqueda);
+        inputJuego.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') ejecutarBusqueda();
         });
     }
 };
