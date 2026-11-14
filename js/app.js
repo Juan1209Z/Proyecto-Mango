@@ -249,9 +249,6 @@ formContacto.addEventListener('submit', (evento) => {
     }, 4000);
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    dibujarFiltros();
-    actualizarVistas();
 
 
 });
