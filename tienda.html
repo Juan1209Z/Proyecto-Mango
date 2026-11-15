@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="cuerpo_inicio">
-    <!-- Cabecera Global -->
     <header class="cabecera-global">
         <div>
             <a href="index.html" class="cabecera_titulo">PC Builder</a>
@@ -16,16 +14,13 @@
         </div>
         <nav>
             <ul class="menu_lista">
-                <li><a class="menu_enlace" href="#catalogo" style="color: white;">Catálogo</a></li>
-                <li><a class="menu_enlace" href="guias.html" style="color: white;">Guias</a></li>
-                <li><a class="menu_enlace" href="#contacto" style="color: white;">Contacto</a></li>
+                <li><a class="menu_enlace" href="#catalogo">Catálogo</a></li>
+                <li><a class="menu_enlace" href="guias.html">Guias</a></li>
+                <li><a class="menu_enlace" href="#contacto">Contacto</a></li>
             </ul>
         </nav>
     </header>
     
-
-
-    <!-- Sección Principal -->
     <main>
         <section class="seccion_inicio" id="catalogo">
             <h2 class="seccion_titulo">Buscador</h2>
@@ -35,103 +30,71 @@
                 <p id="aviso-vacio" class="oculto tarjeta_aviso">No hay coincidencias para tu búsqueda.</p>
             </div>
 
+            <section class="container">
+                <section class="selection-area">
+                    <h2>1. Selecciona tus Componentes</h2>
+                    <div id="category-selector">
+                        <button data-category="cpu">Procesador (CPU)</button>
+                        <button data-category="gpu">Tarjeta Gráfica (GPU)</button>
+                        <button data-category="ram">Memoria RAM</button>
+                        <button data-category="storage">Almacenamiento</button>
+                    </div>
+                    
+                    <div id="filtros-componentes">
+                        <input type="text" id="comp-search" class="campo_control" placeholder="Buscar componente...">
+                        <input type="number" id="comp-min-price" class="campo_control" placeholder="Precio Mínimo">
+                        <input type="number" id="comp-max-price" class="campo_control" placeholder="Precio Máximo">
+                        <select id="comp-sort" class="campo_control">
+                            <option value="">Ordenar por...</option>
+                            <option value="price-asc">Menor a mayor precio</option>
+                            <option value="price-desc">Mayor a menor precio</option>
+                            <option value="name-asc">Nombre A-Z</option>
+                        </select>
+                    </div>
 
-                <!-- Área para elegir piezas -->
-        <section class="container">
- 
-            <section class="selection-area">
-            <h2>1. Selecciona tus Componentes</h2>
-            <div id="category-selector">
-                <button data-category="cpu">Procesador (CPU)</button>
-                <button data-category="gpu">Tarjeta Gráfica (GPU)</button>
-                <button data-category="ram">Memoria RAM</button>
-                <button data-category="storage">Almacenamiento</button>
-            </div>
-            
-            <!-- NUEVO: Controles de búsqueda, filtros y ordenamiento -->
-            <div id="filtros-componentes" style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
-                <input type="text" id="comp-search" class="campo_control" placeholder="Buscar componente..." style="flex: 1; min-width: 150px;">
-                <input type="number" id="comp-min-price" class="campo_control" placeholder="Precio Mínimo" style="width: 130px;">
-                <input type="number" id="comp-max-price" class="campo_control" placeholder="Precio Máximo" style="width: 130px;">
-                <select id="comp-sort" class="campo_control" style="width: auto;">
-                    <option value="">Ordenar por...</option>
-                    <option value="price-asc">Menor a mayor precio</option>
-                    <option value="price-desc">Mayor a menor precio</option>
-                    <option value="name-asc">Nombre A-Z</option>
-                </select>
-            </div>
+                    <div id="parts-list" class="parts-grid"></div>
 
-            <div id="parts-list" class="parts-grid">
-                <!-- Piezas dinámicas -->
-            </div>
+                    <div id="comp-pagination">
+                        <button id="btn-prev-page" class="boton boton--secundario" disabled>Anterior</button>
+                        <span id="page-info">Página 1</span>
+                        <button id="btn-next-page" class="boton boton--secundario" disabled>Siguiente</button>
+                    </div>
+                </section>
 
-            <!-- NUEVO: Controles de Paginación -->
-            <div id="comp-pagination" style="display: flex; gap: 15px; margin-top: 20px; justify-content: center; align-items: center;">
-                <button id="btn-prev-page" class="boton boton--secundario" disabled>Anterior</button>
-                <span id="page-info" style="font-weight: 600;">Página 1</span>
-                <button id="btn-next-page" class="boton boton--secundario" disabled>Siguiente</button>
-            </div>
-                <!-- Piezas dinámicas -->
-            </div>
-        </section>
+                <aside class="build-summary">
+                    <h2>2. Tu Ensamblaje</h2>
+                    <ul id="build-list"></ul>
+                    <div class="total">
+                        Total Presupuesto: <span id="total-price">0</span> COP
+                    </div>
 
-        <!-- Área de resumen del PC -->
-        <aside class="build-summary">
-            <h2>2. Tu Ensamblaje</h2>
-            <ul id="build-list">
-                <!-- Componentes elegidos -->
-            </ul>
-            <div class="total">
-                Total Presupuesto: <span id="total-price">0</span> COP
-            </div>
-
-            <!-- Formulario modificado -->
-            <hr style="margin: 2rem 0;">
-            <h2>3. Guardar Cotización</h2>
-            <form id="form-aspirante">
-                <input type="text" id="nombre" placeholder="Tu Nombre" required>
-                <input type="email" id="correo" placeholder="Correo Electrónico" required>
-                <button type="submit" class="save-btn">Guardar PC</button>
-            </form>
-        </aside>
-
-        </section>
-       
-
+                    <hr class="separador-aside">
+                    <h2>3. Guardar Cotización</h2>
+                    <form id="form-aspirante">
+                        <input type="text" id="nombre" placeholder="Tu Nombre" required>
+                        <input type="email" id="correo" placeholder="Correo Electrónico" required>
+                        <button type="submit" class="save-btn">Guardar PC</button>
+                    </form>
+                </aside>
+            </section>
         </section>
       
-
-        <!-- Tabla de resumen general -->
         <section class="seccion_inicio">
             <h2 class="seccion_titulo">Pedidos</h2>
-            
-            <!-- Botón de exportación -->
-            <button id="btn-export-csv" class="boton" style="margin-bottom: 15px; background-color: var(--color-exito); border-color: var(--color-exito);">
-                Exportar a CSV
-            </button>
+            <button id="btn-export-csv" class="boton">Exportar a CSV</button>
 
             <div class="tabla-contenedor">
-                <!-- ... (tu tabla existente) ... -->
                 <table class="tabla">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>CPU</th>
-                            <th>GPU</th>
-                            <th>RAM</th>
-                            <th>Almacenamiento</th>
-                            <th>Precio total</th>
+                            <th>Nombre</th><th>Correo</th><th>CPU</th><th>GPU</th><th>RAM</th><th>Almacenamiento</th><th>Precio total</th>
                         </tr>
                     </thead>
-                    <tbody id="cuerpo-tabla">
-                        <!-- Tabla llenada con JS -->
-                    </tbody>
+                    <tbody id="cuerpo-tabla"></tbody>
                 </table>
             </div>
         </section>
 
-        <!-- Formulario de contacto validado -->
         <section id="contacto" class="seccion_inicio">
             <h2 class="seccion_titulo">Contacto</h2>
             <form id="form-contacto" class="formulario">
@@ -151,16 +114,13 @@
         </section>
     </main>
 
-
-
     <footer>
         <p class="footer_texto">© 2026 PC Builder. <a href="#" class="Contacto">Soporte</a></p>
         <p class="footer_texto--tenue">Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Script conectado antes del cierre del body -->
     <script src="js/modelo.js"></script>
-<script src="js/vista.js"></script>
-<script type="module" src="js/controlador.js"></script>
+    <script src="js/vista.js"></script>
+    <script type="module" src="js/controlador.js"></script>
 </body>
 </html>
