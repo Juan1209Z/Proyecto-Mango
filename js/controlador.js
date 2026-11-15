@@ -152,26 +152,59 @@ const ControladorAuth = {
 
 // ===================== CONTROLADOR DE LA TIENDA =====================
 const ControladorTienda = {
-    iniciar() {
-        // Verificar que estamos en la página de la tienda
-        if (!document.getElementById("category-selector")) return;
+    currentCategory: 'cpu', //  rastrear categoría activa
 
+    iniciar() {
+        if (!document.getElementById("category-selector")) return;
         VistaTienda.iniciar();
 
         VistaTienda.bindCategoryChange(this.handleCategoryChange.bind(this));
         VistaTienda.bindAddPart(this.handleAddPart.bind(this));
         VistaTienda.bindSaveForm(this.handleSaveForm.bind(this));
 
-        // Cargar por defecto la primera categoría
+        //  BINDINGS MVC
+        VistaTienda.bindFiltros(this.handleFiltros.bind(this));
+        VistaTienda.bindPagination(this.handlePagination.bind(this));
+        VistaTienda.bindExportCSV(this.handleExportCSV.bind(this));
+
         this.handleCategoryChange('cpu');
         this.updateBuildView();
-
-        // 3. NUEVA LÍNEA: Dibujar la tabla de pedidos guardados al cargar la página
         VistaTienda.renderTable(ModeloTienda.getSavedCotizaciones());
     },
-    
-    // ... (el resto de los métodos se mantienen igual)
 
+    // Modificado para usar refreshParts()
+    handleCategoryChange(category) {
+        this.currentCategory = category;
+        ModeloTienda.setFiltros({ page: 1 }); // Reinicia paginación al cambiar de tab
+        this.refreshParts();
+    },
+
+    // Refresca vista pidiendo datos filtrados al Modelo
+    refreshParts() {
+        const { parts, totalPages, currentPage } = ModeloTienda.getFilteredParts(this.currentCategory);
+        VistaTienda.renderAvailableParts(parts, this.currentCategory);
+        VistaTienda.renderPagination(currentPage, totalPages);
+    },
+
+    // Manejo de Filtros
+    handleFiltros(filtrosAplicados) {
+        ModeloTienda.setFiltros(filtrosAplicados);
+        this.refreshParts();
+    },
+
+    // Manejo de Paginación (+1 o -1)
+    handlePagination(direccion) {
+        const nuevaPagina = ModeloTienda.filtros.page + direccion;
+        ModeloTienda.setFiltros({ page: nuevaPagina });
+        this.refreshParts();
+    },
+
+    // Manejo de Exportación CSV
+    handleExportCSV() {
+        const csvContent = ModeloTienda.generateCSV();
+        VistaTienda.downloadCSV(csvContent, 'Mis_Pedidos_PCBuilder.csv');
+    },
+    
     handleCategoryChange(category) {
         VistaTienda.renderAvailableParts(ModeloTienda.getPartsByCategory(category), category);
     },
