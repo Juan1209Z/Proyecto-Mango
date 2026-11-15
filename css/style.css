@@ -682,3 +682,102 @@ footer {
 .caja-autenticacion .campo {
   text-align: left;
 }
+
+
+/* =====================================================================
+   ESTILOS EXTRAÍDOS (LIMPIEZA DE CSS EN LÍNEA)
+   ===================================================================== */
+
+/* Cabecera global */
+.cabecera-global .menu_enlace {
+    color: white;
+}
+
+/* Tienda - Búsqueda, Filtros y Paginación */
+#filtros-componentes {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+#comp-search {
+    flex: 1;
+    min-width: 150px;
+}
+
+#comp-min-price,
+#comp-max-price {
+    width: 130px;
+}
+
+#comp-sort {
+    width: auto;
+}
+
+#comp-pagination {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+#page-info {
+    font-weight: 600;
+}
+
+.separador-aside {
+    margin: 2rem 0;
+    border: 1px solid #eee;
+}
+
+#btn-export-csv {
+    margin-bottom: 15px;
+    background-color: var(--color-primario);
+    border-color: var(--color-primario);
+}
+
+/* Inventario */
+#contenedor-filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+#mensaje {
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+#resumen {
+    margin-top: 15px;
+    font-weight: 600;
+    color: var(--color-texto-tenue);
+}
+
+/* Guías */
+.contenedor-centrado--top {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 50px;
+}
+
+.buscador-grupo {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 600px;
+}
+
+#estado-busqueda {
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+#resultados-juego {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 800px;
+}
