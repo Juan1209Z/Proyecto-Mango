@@ -1,4 +1,4 @@
-const WORKER_URL = 'https://proyecto-mango.juanjomoreno1209.workers.dev/';
+const WORKER_URL = 'https://proyecto-mango.juanjomoreno1209.workers.dev/igdb';
 
 export async function buscarJuegoIGDB(nombreJuego) {
     try {
