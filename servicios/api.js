@@ -1,25 +1,19 @@
-const CLIENT_ID = 'p39i8lbo9nxk4bdv04b9vpyz6ad5pw'; // Pegalo aquí
-const TOKEN = 'aeb7ey3ns9za48gs1x7mxhqkxujypp';         // Pegalo aquí
-// El proxy evita el error de CORS en el navegador
-const PROXY_URL = 'https://corsproxy.io/?';
-const IGDB_URL = encodeURIComponent('https://api.igdb.com/v4/games');
+const WORKER_URL = 'https://proyecto-mango.juanjomoreno1209.workers.dev/';
 
 export async function buscarJuegoIGDB(nombreJuego) {
     try {
-        const response = await fetch(PROXY_URL + IGDB_URL, {
+        const response = await fetch(WORKER_URL, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Client-ID': CLIENT_ID,
-                'Authorization': `Bearer ${TOKEN}`
+                'Content-Type': 'text/plain'
             },
-            // Sintaxis Apicalypse de IGDB para pedir nombre y plataforma
-            body: `search "${nombreJuego}"; fields name, platforms.name, cover.url, rating; limit 8;`
+            body: 'search "' + nombreJuego + '"; fields name, platforms.name, cover.url, rating; limit 8;'
         });
 
         if (!response.ok) {
-            throw new Error(`La API respondió con estado ${response.status}`);
+            throw new Error('La API respondió con estado ' + response.status);
         }
+
         return await response.json();
     } catch (error) {
         console.error('Error al conectar con IGDB:', error);
