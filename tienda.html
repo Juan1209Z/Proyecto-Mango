@@ -48,7 +48,29 @@
                 <button data-category="storage">Almacenamiento</button>
             </div>
             
+            <!-- NUEVO: Controles de búsqueda, filtros y ordenamiento -->
+            <div id="filtros-componentes" style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <input type="text" id="comp-search" class="campo_control" placeholder="Buscar componente..." style="flex: 1; min-width: 150px;">
+                <input type="number" id="comp-min-price" class="campo_control" placeholder="Precio Mínimo" style="width: 130px;">
+                <input type="number" id="comp-max-price" class="campo_control" placeholder="Precio Máximo" style="width: 130px;">
+                <select id="comp-sort" class="campo_control" style="width: auto;">
+                    <option value="">Ordenar por...</option>
+                    <option value="price-asc">Menor a mayor precio</option>
+                    <option value="price-desc">Mayor a menor precio</option>
+                    <option value="name-asc">Nombre A-Z</option>
+                </select>
+            </div>
+
             <div id="parts-list" class="parts-grid">
+                <!-- Piezas dinámicas -->
+            </div>
+
+            <!-- NUEVO: Controles de Paginación -->
+            <div id="comp-pagination" style="display: flex; gap: 15px; margin-top: 20px; justify-content: center; align-items: center;">
+                <button id="btn-prev-page" class="boton boton--secundario" disabled>Anterior</button>
+                <span id="page-info" style="font-weight: 600;">Página 1</span>
+                <button id="btn-next-page" class="boton boton--secundario" disabled>Siguiente</button>
+            </div>
                 <!-- Piezas dinámicas -->
             </div>
         </section>
@@ -82,7 +104,14 @@
         <!-- Tabla de resumen general -->
         <section class="seccion_inicio">
             <h2 class="seccion_titulo">Pedidos</h2>
+            
+            <!-- Botón de exportación -->
+            <button id="btn-export-csv" class="boton" style="margin-bottom: 15px; background-color: var(--color-exito); border-color: var(--color-exito);">
+                Exportar a CSV
+            </button>
+
             <div class="tabla-contenedor">
+                <!-- ... (tu tabla existente) ... -->
                 <table class="tabla">
                     <thead>
                         <tr>
