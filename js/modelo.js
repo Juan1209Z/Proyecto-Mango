@@ -131,6 +131,70 @@ const ModeloTienda = {
     currentBuild: { cpu: null, gpu: null, ram: null, storage: null },
     savedCotizaciones: JSON.parse(localStorage.getItem("pedidos_tienda")) || [],
 
+    filtros: { search: '', minPrice: null, maxPrice: null, sort: '', page: 1, limit: 4 },
+
+    setFiltros(nuevos) {
+        this.filtros = { ...this.filtros, ...nuevos };
+    },
+
+    getFilteredParts(category) { 
+        let parts = [...(this.inventory[category] || [])]; 
+        
+        // 1. Búsqueda por nombre
+        if (this.filtros.search) {
+            const query = this.filtros.search.toLowerCase();
+            parts = parts.filter(p => p.nombre.toLowerCase().includes(query));
+        }
+
+        // 2. Filtros Combinados (Precio Mínimo y Máximo)
+        if (this.filtros.minPrice !== null && this.filtros.minPrice !== '') {
+            parts = parts.filter(p => p.precio >= Number(this.filtros.minPrice));
+        }
+        if (this.filtros.maxPrice !== null && this.filtros.maxPrice !== '') {
+            parts = parts.filter(p => p.precio <= Number(this.filtros.maxPrice));
+        }
+
+        // 3. Ordenamiento por columna virtual
+        if (this.filtros.sort === 'price-asc') parts.sort((a, b) => a.precio - b.precio);
+        if (this.filtros.sort === 'price-desc') parts.sort((a, b) => b.precio - a.precio);
+        if (this.filtros.sort === 'name-asc') parts.sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+        // 4. Paginación
+        const totalPages = Math.ceil(parts.length / this.filtros.limit) || 1;
+        const startIndex = (this.filtros.page - 1) * this.filtros.limit;
+        const paginatedParts = parts.slice(startIndex, startIndex + this.filtros.limit);
+
+        return {
+            parts: paginatedParts,
+            totalPages,
+            currentPage: this.filtros.page
+        };
+    },
+        
+        // Lógica para generar CSV
+    generateCSV() {
+        const headers = ['Nombre', 'Correo', 'CPU', 'GPU', 'RAM', 'Almacenamiento', 'Precio Total'];
+        const rows = this.savedCotizaciones.map(cot => [
+            cot.nombre,
+            cot.correo,
+            cot.build.cpu ? cot.build.cpu.nombre : '-',
+            cot.build.gpu ? cot.build.gpu.nombre : '-',
+            cot.build.ram ? cot.build.ram.nombre : '-',
+            cot.build.storage ? cot.build.storage.nombre : '-',
+            cot.total
+        ]);
+        
+        // Armar el texto con comas y saltos de línea
+        return [
+            headers.join(','),
+            ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+        ].join('\n');
+
+    },
+    
+
+
+
     getPartsByCategory(category) { 
         return this.inventory[category] || []; 
     },
