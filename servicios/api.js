@@ -1,4 +1,4 @@
-const WORKER_URL = 'https://proyecto-mango.juanjomoreno1209.workers.dev/igdb';
+const WORKER_URL = 'https://igdb-api.juanjomoreno1209.workers.dev/';
 
 export async function buscarJuegoIGDB(nombreJuego) {
     try {
@@ -11,7 +11,8 @@ export async function buscarJuegoIGDB(nombreJuego) {
         });
 
         if (!response.ok) {
-            throw new Error('La API respondió con estado ' + response.status);
+            const detalle = await response.text();
+            throw new Error('Estado ' + response.status + ': ' + detalle);
         }
 
         return await response.json();
