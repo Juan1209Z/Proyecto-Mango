@@ -1,5 +1,7 @@
 # PC Builder - Arma tu PC Ideal
 
+Desarrolladores: David Grau Ramírez - Juan José Moreno Flórez
+
 ## Descripción del Proyecto
 PC Builder es una aplicación web interactiva que permite a los usuarios simular el ensamblaje de computadoras personalizadas y a los administradores gestionar el inventario de componentes. Está desarrollada bajo el patrón de arquitectura Modelo-Vista-Controlador (MVC) utilizando JavaScript puro (Vanilla JS).
 
