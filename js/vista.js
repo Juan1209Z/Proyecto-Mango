@@ -121,6 +121,7 @@ llenarFormulario(p) {
 // ===================== VISTA DE LA TIENDA =====================
 const VistaTienda = {
     iniciar() {
+        // ... (mantén lo existente)
         this.partsList = document.getElementById('parts-list');
         this.buildList = document.getElementById('build-list');
         this.totalPrice = document.getElementById('total-price');
@@ -130,6 +131,66 @@ const VistaTienda = {
         this.nombre = document.getElementById('nombre');
         this.correo = document.getElementById('correo');
         this.cuerpoTabla = document.getElementById('cuerpo-tabla');
+
+        // NUEVAS REFERENCIAS DOM
+        this.searchInput = document.getElementById('comp-search');
+        this.minPriceInput = document.getElementById('comp-min-price');
+        this.maxPriceInput = document.getElementById('comp-max-price');
+        this.sortSelect = document.getElementById('comp-sort');
+        this.btnPrev = document.getElementById('btn-prev-page');
+        this.btnNext = document.getElementById('btn-next-page');
+        this.pageInfo = document.getElementById('page-info');
+        this.btnExportCSV = document.getElementById('btn-export-csv');
+    },
+
+    // NUEVO: Renderizar estado de Paginación
+    renderPagination(currentPage, totalPages) {
+        this.pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+        this.btnPrev.disabled = currentPage <= 1;
+        this.btnNext.disabled = currentPage >= totalPages;
+    },
+
+    // NUEVO: Detectar cambios en los filtros y búsqueda
+    bindFiltros(handler) {
+        const trigger = () => {
+            handler({
+                search: this.searchInput.value,
+                minPrice: this.minPriceInput.value,
+                maxPrice: this.maxPriceInput.value,
+                sort: this.sortSelect.value,
+                page: 1 // Al filtrar, volvemos a la página 1
+            });
+        };
+        this.searchInput.addEventListener('input', trigger);
+        this.minPriceInput.addEventListener('input', trigger);
+        this.maxPriceInput.addEventListener('input', trigger);
+        this.sortSelect.addEventListener('change', trigger);
+    },
+
+    // NUEVO: Detectar clicks de Paginación
+    bindPagination(handler) {
+        this.btnPrev.addEventListener('click', () => handler(-1));
+        this.btnNext.addEventListener('click', () => handler(1));
+    },
+
+    // NUEVO: Detectar click en Exportar
+    bindExportCSV(handler) {
+        if(this.btnExportCSV) {
+            this.btnExportCSV.addEventListener('click', () => handler());
+        }
+    },
+
+    // NUEVO: Ejecutar la descarga del archivo CSV
+    downloadCSV(csvContent, filename) {
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", filename);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     },
 
     limpiar() {
