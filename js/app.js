@@ -71,7 +71,7 @@ function dibujarTarjetas(lista) {
         const tarjeta = document.createElement('article');
         tarjeta.classList.add('tarjeta');
         
-        // Estado visual de agotado usando las clases de style.css
+        // Estado visual de agotado 
         if (producto.cantidad === 0) {
             tarjeta.classList.add('tarjeta--agotada'); 
         }
@@ -118,7 +118,7 @@ function dibujarFiltros() {
         const btn = document.createElement('button');
         btn.textContent = cat;
         
-        // Usa los botones base de mango.css 
+        // Usa los botones base de style.css 
         if (cat === categoriaActual) {
             btn.classList.add('boton'); 
         } else {
@@ -216,7 +216,7 @@ formAgregar.addEventListener('submit', (evento) => {
         precio: precio,
         categoria: categoria,
         cantidad: cantidad,
-        imagen: 'img/default.jpg' // Asegúrate de tener esta imagen en tu carpeta
+        imagen: 'img/default.jpg' 
     });
 
     formAgregar.reset();
