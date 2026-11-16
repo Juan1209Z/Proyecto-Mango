@@ -151,7 +151,7 @@ const ControladorAuth = {
 
 // ===================== CONTROLADOR DE LA TIENDA =====================
 const ControladorTienda = {
-    currentCategory: 'cpu', //  rastrear categoría activa
+    currentCategory: 'cpu', // rastrear categoría activa
 
     iniciar() {
         if (!document.getElementById("category-selector")) return;
@@ -162,7 +162,6 @@ const ControladorTienda = {
         VistaTienda.bindSaveForm(this.handleSaveForm.bind(this));
 
         VistaTienda.bindFiltros(this.handleFiltros.bind(this));
-        VistaTienda.bindPagination(this.handlePagination.bind(this));
         VistaTienda.bindExportCSV(this.handleExportCSV.bind(this));
 
         this.handleCategoryChange('cpu');
@@ -172,15 +171,14 @@ const ControladorTienda = {
 
     handleCategoryChange(category) {
         this.currentCategory = category;
-        ModeloTienda.setFiltros({ page: 1 }); // Reinicia paginación al cambiar de tab
         this.refreshParts();
     },
 
     // Refresca vista pidiendo datos filtrados al Modelo
     refreshParts() {
-        const { parts, totalPages, currentPage } = ModeloTienda.getFilteredParts(this.currentCategory);
+        // Ya no pedimos páginas, solo el arreglo de componentes
+        const parts = ModeloTienda.getFilteredParts(this.currentCategory);
         VistaTienda.renderAvailableParts(parts, this.currentCategory);
-        VistaTienda.renderPagination(currentPage, totalPages);
     },
 
     // Manejo de Filtros
@@ -189,21 +187,10 @@ const ControladorTienda = {
         this.refreshParts();
     },
 
-    // Manejo de Paginación (+1 o -1)
-    handlePagination(direccion) {
-        const nuevaPagina = ModeloTienda.filtros.page + direccion;
-        ModeloTienda.setFiltros({ page: nuevaPagina });
-        this.refreshParts();
-    },
-
     // Manejo de Exportación CSV
     handleExportCSV() {
         const csvContent = ModeloTienda.generateCSV();
         VistaTienda.downloadCSV(csvContent, 'Mis_Pedidos_PCBuilder.csv');
-    },
-    
-    handleCategoryChange(category) {
-        VistaTienda.renderAvailableParts(ModeloTienda.getPartsByCategory(category), category);
     },
 
     handleAddPart(category, partId) {
@@ -222,6 +209,7 @@ const ControladorTienda = {
         VistaTienda.renderBuildSummary(ModeloTienda.getBuild(), ModeloTienda.getTotalPrice());
     }
 };
+
 
 
 const ControladorGuias = {
