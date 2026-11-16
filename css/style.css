@@ -784,16 +784,13 @@ footer {
 
 
 .fondo-index {
-font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--color-texto);
-  background-color: var(--color-fondo);
-  margin: 0;
-  padding: 0;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/pc.png');
-    background-size: cover;
-    background-position: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-image: url('../img/pc.png');
+    background-size: contain;
+    background-position: left;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
