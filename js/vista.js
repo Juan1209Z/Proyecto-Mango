@@ -1,8 +1,6 @@
 // ===================== CAPA DE PRESENTACIÓN =====================
 // Dibuja y lee el HTML.
 
-
-
 const Vista = {
   pesos: new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }),
 
@@ -26,8 +24,6 @@ pintarTabla(productos) {
       cuerpo.append(fila);
     });
   },
-
-
 
 boton(texto, accion, id) {
     const b = document.createElement("button");
@@ -133,28 +129,17 @@ const VistaTienda = {
         this.minPriceInput = document.getElementById('comp-min-price');
         this.maxPriceInput = document.getElementById('comp-max-price');
         this.sortSelect = document.getElementById('comp-sort');
-        this.btnPrev = document.getElementById('btn-prev-page');
-        this.btnNext = document.getElementById('btn-next-page');
-        this.pageInfo = document.getElementById('page-info');
         this.btnExportCSV = document.getElementById('btn-export-csv');
     },
 
-   // Renderizar estado de Paginación
-    renderPagination(currentPage, totalPages) {
-        this.pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
-        this.btnPrev.disabled = currentPage <= 1;
-        this.btnNext.disabled = currentPage >= totalPages;
-    },
-
-    // Detectar cambios en los filtros y búsqueda
+    // Detectar cambios en los filtros y búsqueda 
     bindFiltros(handler) {
         const trigger = () => {
             handler({
                 search: this.searchInput.value,
                 minPrice: this.minPriceInput.value,
                 maxPrice: this.maxPriceInput.value,
-                sort: this.sortSelect.value,
-                page: 1 // Al filtrar, volvemos a la página 1
+                sort: this.sortSelect.value
             });
         };
         this.searchInput.addEventListener('input', trigger);
@@ -163,20 +148,20 @@ const VistaTienda = {
         this.sortSelect.addEventListener('change', trigger);
     },
 
-    // NUEVO: Detectar clicks de Paginación
+    // Detectar clicks de Paginación
     bindPagination(handler) {
         this.btnPrev.addEventListener('click', () => handler(-1));
         this.btnNext.addEventListener('click', () => handler(1));
     },
 
-    // NUEVO: Detectar click en Exportar
+    // Detectar click en Exportar
     bindExportCSV(handler) {
         if(this.btnExportCSV) {
             this.btnExportCSV.addEventListener('click', () => handler());
         }
     },
 
-    // NUEVO: Ejecutar la descarga del archivo CSV
+    // Ejecutar la descarga del archivo CSV
     downloadCSV(csvContent, filename) {
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement("a");
@@ -198,7 +183,6 @@ const VistaTienda = {
         parts.forEach(part => {
             const card = document.createElement('div');
             card.className = 'part-card';
-            
             card.innerHTML = `
                 <img src="img/${part.imagen || 'default.jpg'}" alt="${part.nombre}" style="max-width: 100%; height: 300px; object-fit: contain; margin-bottom: 10px;">
                 <h3>${part.nombre}</h3>
@@ -234,7 +218,6 @@ const VistaTienda = {
             const gpuName = cot.build.gpu ? cot.build.gpu.nombre : '-';
             const ramName = cot.build.ram ? cot.build.ram.nombre : '-';
             const storageName = cot.build.storage ? cot.build.storage.nombre : '-';
-
             tr.innerHTML = `
                 <td>${cot.nombre}</td>
                 <td>${cot.correo}</td>
@@ -267,7 +250,6 @@ const VistaTienda = {
 };
 
 // ===================== VISTA API BUILDCORES =====================
-// ===================== VISTA API BUILDCORES =====================
 const VistaAPI = {
     pintarComponentes(componentes, categoria) {
         const contenedor = document.getElementById('api-catalogo');
@@ -286,7 +268,6 @@ const VistaAPI = {
         componentes.slice(0, 12).forEach(comp => {
             const tarjeta = document.createElement('article');
             tarjeta.className = 'tarjeta'; 
-            
             // Generar detalles dinámicos según la categoría
             let detallesHTML = '';
             if (categoria === 'CPUs') {
@@ -312,7 +293,6 @@ const VistaAPI = {
                     ${detallesHTML}
                 </ul>
             `;
-            
             contenedor.appendChild(tarjeta);
         });
     },
@@ -327,13 +307,12 @@ const VistaAPI = {
             }
         });
     }
-}; // <-- Cierre de VistaAPI que faltaba
+}; 
 
 const VistaGuias = {
     mostrarCargando(cargando) {
         const estado = document.getElementById('estado-busqueda');
         const btnBuscar = document.getElementById('btn-buscar-juego');
-
         if (cargando) {
             estado.textContent = 'Buscando juegos en el catálogo...';
             estado.style.color = 'var(--color-primario)';
@@ -358,8 +337,6 @@ const VistaGuias = {
     pintarJuegos(juegosCrudos) {
         const contenedor = document.getElementById('resultados-juego');
         contenedor.innerHTML = '';
-
-        // Transformación de datos con métodos de arreglos (.filter y .map)
         const juegosFormateados = juegosCrudos
             .filter(juego => juego && juego.name)
             .map(juego => ({
@@ -383,7 +360,6 @@ const VistaGuias = {
         juegosFormateados.forEach(juego => {
             const tarjeta = document.createElement('article');
             tarjeta.className = 'tarjeta';
-
             tarjeta.innerHTML = `
                 <img src="${juego.imagen}" class="tarjeta_imagen" alt="${juego.titulo}">
                 <h3 class="tarjeta_titulo">${juego.titulo}</h3>
