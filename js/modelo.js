@@ -231,3 +231,60 @@ const ModeloTienda = {
     
 };
 
+
+// ==========================================
+// MÓDULO DE CONTACTO (Envío de correos)
+// ==========================================
+const formContacto = document.getElementById('form-contacto');
+const mensajeExito = document.getElementById('mensaje-exito');
+
+if (formContacto) {
+    formContacto.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Evita que la página se recargue
+
+        // Recolectar los datos
+        const nombre = document.getElementById('contacto-nombre').value;
+        const correo = document.getElementById('contacto-correo').value;
+
+        // Mostrar mensaje de "Enviando..."
+        mensajeExito.textContent = "Enviando mensaje...";
+        mensajeExito.classList.remove('oculto');
+        mensajeExito.style.color = "blue"; // Opcional para diferenciar el estado
+
+        try {
+            // REEMPLAZA LA URL POR TU ENDPOINT DE FORMSPREE
+            const respuesta = await fetch('https://formspree.io/f/xnpdpenw', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    nombre: nombre, 
+                    correo: correo,
+                    asunto: "Nuevo cliente interesado desde la Tienda"
+                })
+            });
+
+            if (respuesta.ok) {
+                // Éxito
+                mensajeExito.textContent = "¡Mensaje enviado correctamente! Te contactaremos pronto.";
+                mensajeExito.style.color = "var(--color-exito, green)";
+                formContacto.reset(); // Limpiar el formulario
+            } else {
+                // Error del servidor
+                mensajeExito.textContent = "Hubo un problema al enviar el mensaje. Intenta de nuevo.";
+                mensajeExito.style.color = "red";
+            }
+        } catch (error) {
+            // Error de conexión
+            mensajeExito.textContent = "Error de red. Verifica tu conexión.";
+            mensajeExito.style.color = "red";
+        }
+        
+        // Ocultar el mensaje después de 5 segundos
+        setTimeout(() => {
+            mensajeExito.classList.add('oculto');
+        }, 5000);
+    });
+}
