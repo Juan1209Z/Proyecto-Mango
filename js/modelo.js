@@ -131,7 +131,7 @@ const ModeloTienda = {
     currentBuild: { cpu: null, gpu: null, ram: null, storage: null },
     savedCotizaciones: JSON.parse(localStorage.getItem("pedidos_tienda")) || [],
 
-    filtros: { search: '', minPrice: null, maxPrice: null, sort: '', page: 1, limit: 4 },
+filtros: { search: '', minPrice: null, maxPrice: null, sort: '' }, 
 
     setFiltros(nuevos) {
         this.filtros = { ...this.filtros, ...nuevos };
@@ -154,21 +154,12 @@ const ModeloTienda = {
             parts = parts.filter(p => p.precio <= Number(this.filtros.maxPrice));
         }
 
-        // 3. Ordenamiento por columna virtual
+        // 3. Ordenamiento
         if (this.filtros.sort === 'price-asc') parts.sort((a, b) => a.precio - b.precio);
         if (this.filtros.sort === 'price-desc') parts.sort((a, b) => b.precio - a.precio);
         if (this.filtros.sort === 'name-asc') parts.sort((a, b) => a.nombre.localeCompare(b.nombre));
 
-        // 4. Paginación
-        const totalPages = Math.ceil(parts.length / this.filtros.limit) || 1;
-        const startIndex = (this.filtros.page - 1) * this.filtros.limit;
-        const paginatedParts = parts.slice(startIndex, startIndex + this.filtros.limit);
-
-        return {
-            parts: paginatedParts,
-            totalPages,
-            currentPage: this.filtros.page
-        };
+        return parts;
     },
         
         // Lógica para generar CSV
