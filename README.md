@@ -27,7 +27,11 @@ Para el desarrollo de la lógica y la integración de funcionalidades de este pr
 3.  **[Documentación Oficial de IGDB API](https://api-docs.igdb.com/)** 
     *   **Uso en el proyecto:** Sirvió para comprender los endpoints, la autenticación (Bearer Token) y la sintaxis Apicalypse necesaria para realizar peticiones POST. Se usó en `api.js` para extraer y mostrar información real de videojuegos en la sección de guías.
 4. **[Documentación Oficial de Cloudfare Worker](https://developers.cloudflare.com/workers/)**
-    *   **Uso en el proyecto:** Sirvio para crear un proxy backend, para que la pagina pida los datos del worker y este ultimo, pida los datos de IGDB. Tambien sirvio para guardar dos tokens como el client_id y client_secret de twitch, necesarios para acceder a la base de datos. 
+    *   **Uso en el proyecto:** Sirvio para crear un proxy backend, para que la pagina pida los datos del worker y este ultimo, pida los datos de IGDB. Tambien sirvio para guardar dos tokens como el client_id y client_secret de twitch, necesarios para acceder a la base de datos.
+5. **[Documentación Oficial de Github Pages](https://docs.github.com/es/pages)**
+    *   **Uso en el proyecto:** Sirvio para alojar la pagina en el repositorio de GitHub.
+6. **[Documentación Oficial de fromspree](https://help.formspree.io/es/)**
+    *   **Uso en el proyecto:** Se uso para permitir el envio de correo al usuario utilizar el apartado de contacto.
 
 ## Instalación y Uso
 1.  Clona este repositorio o descarga los archivos.
