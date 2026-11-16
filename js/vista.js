@@ -1,5 +1,5 @@
 // ===================== CAPA DE PRESENTACIÓN =====================
-// Solo dibuja y lee el HTML. No conoce localStorage ni las reglas.
+// Dibuja y lee el HTML.
 
 
 
@@ -121,18 +121,14 @@ llenarFormulario(p) {
 // ===================== VISTA DE LA TIENDA =====================
 const VistaTienda = {
     iniciar() {
-        // ... (mantén lo existente)
         this.partsList = document.getElementById('parts-list');
         this.buildList = document.getElementById('build-list');
         this.totalPrice = document.getElementById('total-price');
         this.categoryButtons = document.querySelectorAll('#category-selector button');
-        
         this.form = document.getElementById('form-aspirante');
         this.nombre = document.getElementById('nombre');
         this.correo = document.getElementById('correo');
         this.cuerpoTabla = document.getElementById('cuerpo-tabla');
-
-        // NUEVAS REFERENCIAS DOM
         this.searchInput = document.getElementById('comp-search');
         this.minPriceInput = document.getElementById('comp-min-price');
         this.maxPriceInput = document.getElementById('comp-max-price');
@@ -143,14 +139,14 @@ const VistaTienda = {
         this.btnExportCSV = document.getElementById('btn-export-csv');
     },
 
-    // NUEVO: Renderizar estado de Paginación
+   // Renderizar estado de Paginación
     renderPagination(currentPage, totalPages) {
         this.pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
         this.btnPrev.disabled = currentPage <= 1;
         this.btnNext.disabled = currentPage >= totalPages;
     },
 
-    // NUEVO: Detectar cambios en los filtros y búsqueda
+    // Detectar cambios en los filtros y búsqueda
     bindFiltros(handler) {
         const trigger = () => {
             handler({
