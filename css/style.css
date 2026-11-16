@@ -781,3 +781,13 @@ footer {
     width: 100%;
     max-width: 800px;
 }
+
+
+.cuerpo_inicio {
+    /* El degradado rgba (negro al 70% de opacidad) oscurece la imagen de fondo */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/pcfea.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
