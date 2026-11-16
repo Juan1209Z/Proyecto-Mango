@@ -783,7 +783,7 @@ footer {
 }
 
 
-.cuerpo_inicio {
+.fondo-index {
     /* El degradado rgba (negro al 70% de opacidad) oscurece la imagen de fondo */
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/pcfea.jpg');
     background-size: cover;
