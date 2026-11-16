@@ -2,7 +2,7 @@
 // Escucha al usuario, le pide al modelo y le dice a la vista qué pintar.
 import { buscarJuegoIGDB } from '../servicios/api.js';
 const Controlador = {
-  // null = el formulario está creando; un número = está editando ese producto
+  
   idEditando: null,
   
   iniciar() {
@@ -16,7 +16,6 @@ const Controlador = {
 
     document.querySelector("#cancelar").addEventListener("click", () => this.cancelarEdicion());
 
-    // Delegación: un solo listener para todos los botones de la tabla
     document.querySelector("#cuerpo").addEventListener("click", (e) => {
       const { accion, id } = e.target.dataset;
       if (accion === "editar") this.editar(Number(id));
@@ -162,7 +161,6 @@ const ControladorTienda = {
         VistaTienda.bindAddPart(this.handleAddPart.bind(this));
         VistaTienda.bindSaveForm(this.handleSaveForm.bind(this));
 
-        //  BINDINGS MVC
         VistaTienda.bindFiltros(this.handleFiltros.bind(this));
         VistaTienda.bindPagination(this.handlePagination.bind(this));
         VistaTienda.bindExportCSV(this.handleExportCSV.bind(this));
@@ -172,7 +170,6 @@ const ControladorTienda = {
         VistaTienda.renderTable(ModeloTienda.getSavedCotizaciones());
     },
 
-    // Modificado para usar refreshParts()
     handleCategoryChange(category) {
         this.currentCategory = category;
         ModeloTienda.setFiltros({ page: 1 }); // Reinicia paginación al cambiar de tab
@@ -226,8 +223,6 @@ const ControladorTienda = {
     }
 };
 
-// Importa la función al inicio de controlador.js si usas módulos, 
-// o asegúrate de que api.js esté cargado antes en el HTML.
 
 const ControladorGuias = {
     iniciar() {
@@ -281,13 +276,11 @@ document.addEventListener("DOMContentLoaded", () => {
         ControladorTienda.iniciar(); // Arranca Tienda
     }
 
-    // NUEVO: Arranca la página de Guías/API
     if (document.getElementById("api-catalogo")) {
-        ControladorAPI.iniciar();
+        ControladorAPI.iniciar(); // Arranca Guias
     }
     
-    // NUEVO: Arranca la página de Guías/Juegos
     if (document.getElementById("btn-buscar-juego")) {
-        ControladorGuias.iniciar();
+        ControladorGuias.iniciar(); // Arranca la busqueda de juegos
     }
 });
