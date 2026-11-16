@@ -784,8 +784,14 @@ footer {
 
 
 .fondo-index {
-    /* El degradado rgba (negro al 70% de opacidad) oscurece la imagen de fondo */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/pc.jpg');
+font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+  margin: 0;
+  padding: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/pc.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
