@@ -209,7 +209,6 @@ const ModeloTienda = {
     },
 
     getTotalPrice() {
-        // Corregido: Suma usando 'precio' en lugar de 'price'
         return Object.values(this.currentBuild).reduce((acc, part) => part ? acc + part.precio : acc, 0);
     },
 
@@ -220,7 +219,6 @@ const ModeloTienda = {
         this.savedCotizaciones.push({ nombre, correo, build: buildSnapshot, total });
         this.currentBuild = { cpu: null, gpu: null, ram: null, storage: null };
 
-        // 2. Agrega esta línea para persistir el arreglo cada vez que se guarda un PC
         localStorage.setItem("pedidos_tienda", JSON.stringify(this.savedCotizaciones));
     },
 
@@ -249,10 +247,9 @@ if (formContacto) {
         // Mostrar mensaje de "Enviando..."
         mensajeExito.textContent = "Enviando mensaje...";
         mensajeExito.classList.remove('oculto');
-        mensajeExito.style.color = "blue"; // Opcional para diferenciar el estado
+        mensajeExito.style.color = "blue"; 
 
         try {
-            // REEMPLAZA LA URL POR TU ENDPOINT DE FORMSPREE
             const respuesta = await fetch('https://formspree.io/f/xnpdpenw', {
                 method: 'POST',
                 headers: {
