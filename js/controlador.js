@@ -82,7 +82,7 @@ guardar() {
 
 const ControladorAuth = {
     iniciar() {
-        // Verificar que estamos en la página de inicio (App initialization)
+        // Verificar que estamos en la página de inicio
         if (!document.getElementById("panel-seleccion")) return;
 
         ModeloAuth.inicializar();
