@@ -11,8 +11,8 @@ const Modelo = {
             { id: 3, nombre: 'NVIDIA RTX 4060', precio: 1200000, categoria: 'GPU', cantidad: 5, imagen: 'img/gpunvidia.jpg' },
             { id: 4, nombre: 'AMD Radeon RX 7600', precio: 1100000, categoria: 'GPU', cantidad: 2, imagen: 'img/gpuamd.jpg' },
             { id: 5, nombre: 'Corsair Vengeance 16GB', precio: 180000, categoria: 'RAM', cantidad: 20, imagen: 'img/ram.jpg' },
-            { id: 6, nombre: 'Crucial 1TB NVMe', precio: 250000, categoria: 'Almacenamiento', cantidad: 8, imagen: 'img/almacenamiento.jpg' }
-            { id: 7, nombre: 'Kingston Fury Beast 32GB', precio: 380000, categoria: 'RAM', cantidad: 15, imagen: 'img/ram2.jpg' },
+            { id: 6, nombre: 'Kingston Fury Beast 32GB', precio: 380000, categoria: 'RAM', cantidad: 15, imagen: 'img/ram2.jpg' },
+            { id: 7, nombre: 'Crucial 1TB NVMe', precio: 250000, categoria: 'Almacenamiento', cantidad: 8, imagen: 'img/almacenamiento.jpg' },
             { id: 8, nombre: 'Samsung 980 PRO 2TB', precio: 850000, categoria: 'Almacenamiento', cantidad: 5, imagen: 'img/almacenamiento2.jpg' }
         ];
     },
@@ -124,10 +124,10 @@ const ModeloTienda = {
         ],
         ram: [
             { id: '5', nombre: 'Corsair Vengeance 16GB', precio: 180000, imagen: 'ram.jpg' },
-            { id: '7', nombre: 'Kingston Fury Beast 32GB', precio: 380000, imagen: 'ram2.jpg' }
+            { id: '6', nombre: 'Kingston Fury Beast 32GB', precio: 380000, imagen: 'ram2.jpg' }
         ],
         storage: [
-            { id: '6', nombre: 'Crucial 1TB NVMe', precio: 250000, imagen: 'almacenamiento.jpg' },
+            { id: '7', nombre: 'Crucial 1TB NVMe', precio: 250000, imagen: 'almacenamiento.jpg' },
             { id: '8', nombre: 'Samsung 980 PRO 2TB', precio: 850000, imagen: 'almacenamiento2.jpg' }
         ]
     },
